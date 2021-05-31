@@ -3,16 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Santander.Api.ApiModels;
 using Santander.Api.Controllers.BaseController;
+using Santander.HnService.Interfaces;
 
-namespace Santander.AggregatrApi.Controllers
+namespace Santander.Api.Controllers
 {
     public class AggregateController : BaseApiController
     {
         private readonly IConfiguration _config;
-
-        public AggregateController(IConfiguration config)
+        private readonly IHnAggregatorService _aggregator;
+        public AggregateController(IConfiguration config, IHnAggregatorService aggregator)
         {
             _config = config;
+            _aggregator = aggregator;
         }
 
         [HttpPost]
@@ -25,8 +27,7 @@ namespace Santander.AggregatrApi.Controllers
             var hnUrl = _config.GetValue<string>("MyConfigs:HNUrlPath");
 
             // Return processed object from Hacker News Aggregator Service
-            // var aggregation = HnAggregatorService.ProcessHnAggregator(hnUrl, ids);
-            return Ok();
+            return Ok(_aggregator.ProcessHnAggregator(hnUrl, ids));
         }
     }
 }

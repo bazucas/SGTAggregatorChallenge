@@ -6,8 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Presentation/Santander.Api/Santander.Api.csproj", "Presentation/Santander.Api/"]
-COPY ["Core/Santander.HnService/Santander.HnService.csproj", "Core/Santander.HnService/"]
-RUN dotnet restore "Presentation/Santander.Api/Santander.Api.csproj"
+RUN dotnet restore "Presentation\Santander.Api\Santander.Api.csproj"
 COPY . .
 WORKDIR "/src/Presentation/Santander.Api"
 RUN dotnet build "Santander.Api.csproj" -c Release -o /app/build
