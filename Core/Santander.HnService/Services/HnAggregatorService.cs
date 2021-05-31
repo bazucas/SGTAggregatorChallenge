@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Santander.HnService.Interfaces;
 using Santander.HnService.Models;
 
-namespace Santander.HnService
+namespace Santander.HnService.Services
 {
     public class HnAggregatorService : IHnAggregatorService
     {

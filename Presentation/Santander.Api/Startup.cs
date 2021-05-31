@@ -2,12 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Santander.Api.Extensions;
 using Santander.Api.Middleware;
-using Santander.HnService;
 using Santander.HnService.Interfaces;
+using Santander.HnService.Services;
 
 namespace Santander.Api
 {
@@ -41,9 +39,7 @@ namespace Santander.Api
         {
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
-            app.UseHttpsRedirection();
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             app.UseRouting();
 
