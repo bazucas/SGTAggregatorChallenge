@@ -121,8 +121,13 @@ Example:
 ### HACKER NEWS API:
 
 The Hacker News API documentation is here: https://github.com/HackerNews/API
-For this challenge, you will need to use the following Items endpoint, which will give all the information needed for the aggregation: https://github.com/HackerNews/API#items
+
+For this challenge, you will need to use the following Items endpoint, which will give all the information needed for the aggregation: 
+
+https://github.com/HackerNews/API#items
+
 For the purposes of this challenge, an invalid item is the one that returns null on the GET request to /v0/items/{id}.json. For example:
+
 https://hacker-news.firebaseio.com/v0/item/invalid.json
 
 <br>
@@ -149,6 +154,7 @@ dotnet build
 ``` 
 
 Using Docker to run the containerized application, go to the Api folder and run
+
 $:docker build -f [DockerFilePath] -t santander --target base [SolutionPath]
 
 ```bash
