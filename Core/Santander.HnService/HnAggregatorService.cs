@@ -32,7 +32,7 @@ namespace Santander.HnService
              // Deserialize all responses from Hn endpoint
              var baseList = tasks.Select(task => JsonSerializer.Deserialize<HnBaseResponse>(task.Result, options)).ToList();
 
-             // 
+             // Convert all Hn responses to our dictionary type aggregator
              var formattedOutput = ConvertHnItemToDictionary(baseList);
 
              return JsonSerializer.Serialize(formattedOutput);

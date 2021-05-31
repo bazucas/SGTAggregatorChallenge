@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Santander.Api.Extensions;
+using Santander.Api.Middleware;
 using Santander.HnService;
 using Santander.HnService.Interfaces;
 
@@ -23,27 +25,31 @@ namespace Santander.Api
         {
             services.AddControllers();
             services.AddScoped<IHnAggregatorService, HnAggregatorService>();
-            services.AddSwaggerGen(c =>
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
+            services.AddCors(opt =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Santander.Api", Version = "v1" });
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Santander.Api v1"));
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors("CorsPolicy");
+
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {
