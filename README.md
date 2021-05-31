@@ -188,7 +188,9 @@ Pass this in the body:
 * Test project added, but need some actual unit tests;
 * Dictionary of dicyionaries seemed the best option to accomodate dynamic objects;
 * Some errors and bad requests treated, although it could have more error handling;
-* No database (persistence), ILogger, etc, used.
+* No database (persistence), ILogger, etc, used;
+* Thorough testing is needed;
+* I had some issues with Docker and the VMs, couldn't properly test it. 
 
 <br>
 
